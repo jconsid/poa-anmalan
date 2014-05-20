@@ -1,7 +1,7 @@
 {
 
   // Java verticle
-  "main":"se.consid.poa.PingVerticle",
+  "main":"se.consid.poa.SkapaLoggmeddelande",
 
   // In this example we also provide various other versions of the main verticle, you can uncomment this and
   // play around:
