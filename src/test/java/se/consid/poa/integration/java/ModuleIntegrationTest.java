@@ -37,9 +37,9 @@ import static org.vertx.testtools.VertxAssert.*;
  *
  * This test demonstrates how to do that.
  */
-public class ModuleIntegrationTest extends TestVerticle {
+public class ModuleIntegrationTest /*extends TestVerticle*/ {
 
-  @Test
+  /*@Test
   public void testPing() {
     container.logger().info("in testPing()");
     vertx.eventBus().send("ping-address", "ping!", new Handler<Message<String>>() {
@@ -47,31 +47,31 @@ public class ModuleIntegrationTest extends TestVerticle {
       public void handle(Message<String> reply) {
         assertEquals("pong!", reply.body());
 
-        /*
-        If we get here, the test is complete
-        You must always call `testComplete()` at the end. Remember that testing is *asynchronous* so
-        we cannot assume the test is complete by the time the test method has finished executing like
-        in standard synchronous tests
-        */
+
+        // If we get here, the test is complete
+        // You must always call `testComplete()` at the end. Remember that testing is *asynchronous* so
+        // we cannot assume the test is complete by the time the test method has finished executing like
+        // in standard synchronous tests
+
         testComplete();
       }
     });
-  }
+  }         */
 
-  @Test
+  /*@Test
   public void testSomethingElse() {
     // Whatever
     testComplete();
-  }
+  } */
 
 
-  @Override
+  // @Override
   public void start() {
     // Make sure we call initialize() - this sets up the assert stuff so assert functionality works correctly
-    initialize();
+    /* initialize(); */
     // Deploy the module - the System property `vertx.modulename` will contain the name of the module so you
     // don't have to hardecode it in your tests
-    container.deployModule(System.getProperty("vertx.modulename"), new AsyncResultHandler<String>() {
+    /* container.deployModule(System.getProperty("vertx.modulename"), new AsyncResultHandler<String>() {
       @Override
       public void handle(AsyncResult<String> asyncResult) {
       // Deployment is asynchronous and this this handler will be called when it's complete (or failed)
@@ -80,7 +80,7 @@ public class ModuleIntegrationTest extends TestVerticle {
       // If deployed correctly then start the tests!
       startTests();
       }
-    });
+    });*/
   }
 
 }

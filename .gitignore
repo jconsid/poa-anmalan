@@ -1,0 +1,7 @@
+# Can ignore specific files
+.DS_Store
+nohup.out
+
+# Can also ignore all directories and files in a directory.
+target
+target/**/* 
