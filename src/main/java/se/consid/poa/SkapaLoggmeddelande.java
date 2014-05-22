@@ -23,12 +23,12 @@ public class SkapaLoggmeddelande extends Verticle {
                 vertx.eventBus().send("test.mongodb", update, new Handler<Message<JsonObject>>() {
                     @Override
                     public void handle(final Message<JsonObject> dbResponse) {
-                        final JsonObject answer = dbResponse.body();
-                        container.logger().info(answer);
+                    final JsonObject answer = dbResponse.body();
+                    container.logger().info(answer);
 
-                        request.reply(answer);
+                    request.reply(answer);
 
-                        fireEventLogSkapad(body);
+                    fireEventAnmalanUppdaterad(createUpdateEvent(body));
                     }
                 });
             }
@@ -43,8 +43,17 @@ public class SkapaLoggmeddelande extends Verticle {
         });
     }
 
-    private void fireEventLogSkapad(final JsonObject query) {
-        vertx.eventBus().publish("anmalan.skapad", query);
+    private JsonObject createUpdateEvent(final JsonObject request) {
+        final JsonObject event = new JsonObject();
+        event.putString("id", request.getInteger("id").toString());
+        event.putString("username", request.getString("username"));
+        event.putString("subject", "Unknown"); // TODO lägg till titel på Anmalan.
+        return event;
+    }
+
+    private void fireEventAnmalanUppdaterad(final JsonObject event) {
+        container.logger().info("publishing anmalan.uppdaterad");
+        vertx.eventBus().publish("anmalan.uppdaterad", event);
     }
 
     protected JsonObject createUpdate(final JsonObject request) {
