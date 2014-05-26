@@ -206,7 +206,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/se/consid/poa/SkapaLoggmeddelande.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1122">
-              <caret line="11" column="32" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="32" />
+              <caret line="14" column="69" selection-start-line="14" selection-start-column="43" selection-end-line="14" selection-end-column="69" />
               <folding />
             </state>
           </provider>
@@ -215,29 +215,25 @@
       <file leaf-file-name="startVerticles.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/startVerticles.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="340">
-              <caret line="6" column="91" selection-start-line="6" selection-start-column="72" selection-end-line="6" selection-end-column="91" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="357">
+              <caret line="8" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="mod.json" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/mod.json">
+      <file leaf-file-name="SkickaTillPolisen.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/se/consid/poa/SkickaTillPolisen.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.03756906" vertical-offset="0" max-vertical-offset="905">
-              <caret line="2" column="90" selection-start-line="2" selection-start-column="90" selection-end-line="2" selection-end-column="90" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="pom.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pom.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-4.1754384" vertical-offset="0" max-vertical-offset="5287">
-              <caret line="14" column="18" selection-start-line="14" selection-start-column="18" selection-end-line="14" selection-end-column="18" />
-              <folding />
+            <state vertical-scroll-proportion="0.4752688" vertical-offset="0" max-vertical-offset="930">
+              <caret line="26" column="54" selection-start-line="26" selection-start-column="54" selection-end-line="26" selection-end-column="54" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#516#926#0" expanded="true" />
+                <element signature="e#915#916#0" expanded="true" />
+                <element signature="e#1035#1313#0" expanded="true" />
+                <element signature="e#1294#1295#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -268,6 +264,8 @@
         <option value="$PROJECT_DIR$/src/test/java/se/consid/poa/integration/java/ModuleIntegrationTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/se/consid/poa/SkapaLoggmeddelande.java" />
         <option value="$PROJECT_DIR$/src/main/resources/mod.json" />
+        <option value="$PROJECT_DIR$/src/main/resources/startVerticles.js" />
+        <option value="$PROJECT_DIR$/src/main/java/se/consid/poa/SkickaTillPolisen.java" />
       </list>
     </option>
   </component>
@@ -840,10 +838,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/mod.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.03756906" vertical-offset="0" max-vertical-offset="905">
+          <caret line="2" column="90" selection-start-line="2" selection-start-column="90" selection-end-line="2" selection-end-column="90" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/startVerticles.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="340">
-          <caret line="6" column="91" selection-start-line="6" selection-start-column="72" selection-end-line="6" selection-end-column="91" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="357">
+          <caret line="8" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -851,16 +857,22 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/se/consid/poa/SkapaLoggmeddelande.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1122">
-          <caret line="11" column="32" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="32" />
+          <caret line="14" column="69" selection-start-line="14" selection-start-column="43" selection-end-line="14" selection-end-column="69" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/mod.json">
+    <entry file="file://$PROJECT_DIR$/src/main/java/se/consid/poa/SkickaTillPolisen.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.03756906" vertical-offset="0" max-vertical-offset="905">
-          <caret line="2" column="90" selection-start-line="2" selection-start-column="90" selection-end-line="2" selection-end-column="90" />
-          <folding />
+        <state vertical-scroll-proportion="0.4752688" vertical-offset="0" max-vertical-offset="930">
+          <caret line="26" column="54" selection-start-line="26" selection-start-column="54" selection-end-line="26" selection-end-column="54" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#516#926#0" expanded="true" />
+            <element signature="e#915#916#0" expanded="true" />
+            <element signature="e#1035#1313#0" expanded="true" />
+            <element signature="e#1294#1295#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
