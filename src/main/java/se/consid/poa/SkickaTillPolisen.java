@@ -16,15 +16,15 @@ public class SkickaTillPolisen extends Verticle {
 
         final String fromEmail = container.config().getString("fromEmail");
         final String addressMailMod = container.config().getString("address");
+        container.logger().info("SkickaTillPolisen : fromEmail: " + fromEmail);
+        container.logger().info("SkickaTillPolisen : addressMailMod: " + addressMailMod);
 
         final Handler<Message<JsonObject>> skickaTillPolisenHandler = new Handler<Message<JsonObject>>() {
             @Override
             public void handle(final Message<JsonObject> request) {
-                container.logger().info("mu");
                 container.logger().info(request.body());
                 final JsonObject body = request.body();
 
-                container.logger().info("Skickar mail till polisen på adress: " + fromEmail);
                 final JsonObject update = createMail(fromEmail, body);
 
                 vertx.eventBus().send(addressMailMod, update, new Handler<Message<JsonObject>>() {
@@ -42,20 +42,21 @@ public class SkickaTillPolisen extends Verticle {
             }
         };
 
-        vertx.eventBus().registerHandler("skicka.till.polisen",
+         vertx.eventBus().registerHandler("skicka.till.polisen",
                 skickaTillPolisenHandler, new Handler<AsyncResult<Void>>() {
                     @Override
                     public void handle(final AsyncResult<Void> result) {
                         container.logger().info("Skicka till polisen deploy " + result.succeeded());
                     }
                 });
+
     }
 
     private JsonObject createUpdateEvent(final JsonObject request) {
         final JsonObject event = new JsonObject();
         event.putString("id", request.getInteger("id").toString());
         event.putString("username", request.getString("username"));
-        event.putString("subject", "Unknown"); // TODO lägg till titel på Anmalan.
+        event.putString("subject", "Unknown"); // TODO lägg till titel pa Anmälan.
         return event;
     }
 
