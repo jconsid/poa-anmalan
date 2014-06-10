@@ -29,20 +29,20 @@ public class SkickaTillPolisen extends Verticle {
 
                 vertx.eventBus().send(addressMailMod, update, new Handler<Message<JsonObject>>() {
                     @Override
-                    public void handle(final Message<JsonObject> dbResponse) {
-                        final JsonObject answer = dbResponse.body();
+                    public void handle(final Message<JsonObject> mailResponse) {
+                        final JsonObject answer = mailResponse.body();
                         container.logger().info(answer);
 
                         request.reply(answer);
 
-                        fireEventAnmalanUppdaterad(createUpdateEvent(body));
+                        fireEventEpostSkickad(createUpdateEvent(body));
                     }
                 });
 
             }
         };
 
-         vertx.eventBus().registerHandler("skicka.till.polisen",
+         vertx.eventBus().registerHandler("skicka.till.polisen.epost",
                 skickaTillPolisenHandler, new Handler<AsyncResult<Void>>() {
                     @Override
                     public void handle(final AsyncResult<Void> result) {
@@ -60,9 +60,9 @@ public class SkickaTillPolisen extends Verticle {
         return event;
     }
 
-    private void fireEventAnmalanUppdaterad(final JsonObject event) {
-        container.logger().info("publishing anmalan.uppdaterad");
-        vertx.eventBus().publish("anmalan.uppdaterad", event);
+    private void fireEventEpostSkickad(final JsonObject event) {
+        container.logger().info("anmalan skickad till polis");
+        vertx.eventBus().publish("anmalan.skickad", event);
     }
 
     private JsonObject createMail(final String fromEmail, final JsonObject body) {
