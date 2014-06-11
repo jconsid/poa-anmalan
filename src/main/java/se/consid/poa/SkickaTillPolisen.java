@@ -1,5 +1,6 @@
 package se.consid.poa;
 
+import org.omg.CORBA.StringValueHelper;
 import org.vertx.java.core.AsyncResult;
 import org.vertx.java.core.Handler;
 import org.vertx.java.core.eventbus.Message;
@@ -16,8 +17,6 @@ public class SkickaTillPolisen extends Verticle {
 
         final String fromEmail = container.config().getString("fromEmail");
         final String addressMailMod = container.config().getString("address");
-        container.logger().info("SkickaTillPolisen : fromEmail: " + fromEmail);
-        container.logger().info("SkickaTillPolisen : addressMailMod: " + addressMailMod);
 
         final Handler<Message<JsonObject>> skickaTillPolisenHandler = new Handler<Message<JsonObject>>() {
             @Override
@@ -54,9 +53,9 @@ public class SkickaTillPolisen extends Verticle {
 
     private JsonObject createUpdateEvent(final JsonObject request) {
         final JsonObject event = new JsonObject();
-        event.putString("id", request.getInteger("id").toString());
+        event.putString("id", request.getString("id"));
         event.putString("username", request.getString("username"));
-        event.putString("subject", "Unknown"); // TODO lägg till titel pa Anmälan.
+        event.putString("title", request.getString("title"));
         return event;
     }
 
@@ -69,8 +68,8 @@ public class SkickaTillPolisen extends Verticle {
         final JsonObject mail = new JsonObject();
         mail.putString("from", fromEmail);
         mail.putString("to", fromEmail); //TODO: rätt e-postadress
-        mail.putString("subject", "Anmälan till polisen på " + body.getString("subject"));
-        mail.putString("body", String.format("Hej Polisen, detta är en anmälan. %s Från SB", body.getString("body")));
+        mail.putString("subject", "Anmälan till polisen på " + body.getString("title"));
+        mail.putString("body", String.format("Hej Polisen, detta är en anmälan. %s Från SB", body.getString("title")));
 
         return mail;
     }
