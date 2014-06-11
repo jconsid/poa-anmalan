@@ -6,6 +6,8 @@ import org.vertx.java.core.eventbus.Message;
 import org.vertx.java.core.json.JsonObject;
 import org.vertx.java.platform.Verticle;
 
+import java.util.Date;
+
 /**
  * Created by JOHA on 2014-06-10.
  */
@@ -28,7 +30,7 @@ public class SkickaTillPolisenController extends Verticle {
 
                         request.reply(answer);
 
-                        fireEventAnmalanUppdaterad(createUpdateEvent(body));
+                        addEvent(body);
                     }
                 });
 
@@ -46,11 +48,49 @@ public class SkickaTillPolisenController extends Verticle {
 
     }
 
+    protected JsonObject createUpdate(final JsonObject request) {
+        final String anmalanId = request.getString("id");
+
+        final String tid = new Date().toString();
+
+        final JsonObject person = new JsonObject();
+        person.putString("firstname", "(Bosse)");
+
+        final JsonObject handelse = new JsonObject();
+        handelse.putString("typ", "logg");
+        handelse.putString("tid", tid);
+        handelse.putObject("person", person);
+
+        final JsonObject upd = new JsonObject();
+        upd.putObject("$push", new JsonObject().putObject("handelser", handelse));
+
+        final JsonObject update = new JsonObject();
+        update.putString("action", "update");
+        update.putString("collection", "anmalningar");
+        update.putObject("criteria", new JsonObject().putString("_id", anmalanId));
+        update.putObject("objNew", upd);
+
+        return  update;
+    }
+
+    private void addEvent(final JsonObject body){
+
+        vertx.eventBus().send("test.mongodb", createUpdate(body), new Handler<Message<JsonObject>>() {
+            @Override
+            public void handle(final Message<JsonObject> vertxResponse) {
+                final JsonObject answer = vertxResponse.body();
+                container.logger().info(answer);
+
+                fireEventAnmalanUppdaterad(createUpdateEvent(body));
+            }
+        });
+    }
+
     private JsonObject createUpdateEvent(final JsonObject request) {
         final JsonObject event = new JsonObject();
-        event.putString("id", request.getInteger("id").toString());
+        event.putString("id", request.getString("id"));
         event.putString("username", request.getString("username"));
-        event.putString("subject", "Unknown"); // TODO lägg till titel pa Anmälan.
+        event.putString("title", request.getString("title"));
         return event;
     }
 
