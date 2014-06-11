@@ -57,7 +57,7 @@ public class SkickaTillPolisenController extends Verticle {
         person.putString("firstname", "(Bosse)");
 
         final JsonObject handelse = new JsonObject();
-        handelse.putString("typ", "logg");
+        handelse.putString("typ", "skickad");
         handelse.putString("tid", tid);
         handelse.putObject("person", person);
 
