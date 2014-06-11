@@ -40,6 +40,7 @@ public class SkapaAnmalan extends Verticle {
 
 								anmalan.putString("id", answer.getString("_id"));
 
+
 								fireEventAnmalanUppdaterad(anmalan);
 							}
 						});
