@@ -23,12 +23,12 @@ public class SkapaLoggmeddelande extends Verticle {
 
                 vertx.eventBus().send("test.mongodb", update, new Handler<Message<JsonObject>>() {
                     public void handle(final Message<JsonObject> dbResponse) {
-                    final JsonObject answer = dbResponse.body();
-                    container.logger().info(answer);
+                        final JsonObject answer = dbResponse.body();
+                        container.logger().info(answer);
 
-                    request.reply(answer);
+                        request.reply(answer);
 
-                    createUpdateEvent(body);
+                        fireUpdateEvent(body);
                     }
                 });
             }
@@ -43,15 +43,15 @@ public class SkapaLoggmeddelande extends Verticle {
         );
     }
 
-    private void createUpdateEvent(final JsonObject request) {
+    private void fireUpdateEvent(final JsonObject request) {
         final JsonObject query = new JsonObject();
         query.putString("action", "find");
         query.putString("collection", "anmalningar");
         query.putObject("matcher", new JsonObject().putString("_id", request.getString("id")));
 
-        vertx.eventBus().send("test.mongodb", query, new Handler<Message<JsonObject>>()  {
+        vertx.eventBus().send("test.mongodb", query, new Handler<Message<JsonObject>>() {
             public void handle(final Message<JsonObject> dbResponse) {
-                final JsonObject anmalan = dbResponse.body();
+                final JsonObject anmalan = dbResponse.body().getArray("results").get(0);
 
                 container.logger().info("publishing anmalan.uppdaterad");
                 vertx.eventBus().publish("anmalan.uppdaterad", anmalan);
@@ -87,7 +87,7 @@ public class SkapaLoggmeddelande extends Verticle {
         update.putObject("criteria", new JsonObject().putString("_id", anmalanId));
         update.putObject("objNew", upd);
 
-        return  update;
+        return update;
     }
 
 }
