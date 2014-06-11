@@ -84,7 +84,7 @@ public class SkapaAnmalan extends Verticle {
 		JsonArray handelseArray = new JsonArray();
 
 		JsonObject handelse = new JsonObject();
-		handelse.putString("typ", "anmalan skapd");
+		handelse.putString("typ", "skapad");
 		handelse.putString("tid", getTimeStamp());
 		handelse.putObject("person", fabricatePerson(skapadAv));
 
