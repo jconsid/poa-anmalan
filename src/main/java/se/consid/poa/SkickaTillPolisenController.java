@@ -53,8 +53,7 @@ public class SkickaTillPolisenController extends Verticle {
 
         final String tid = new Date().toString();
 
-        final JsonObject person = new JsonObject();
-        person.putString("firstname", "(Bosse)");
+        final JsonObject person = request.getObject("skapadAv");
 
         final JsonObject handelse = new JsonObject();
         handelse.putString("typ", "skickad");
@@ -63,6 +62,7 @@ public class SkickaTillPolisenController extends Verticle {
 
         final JsonObject upd = new JsonObject();
         upd.putObject("$push", new JsonObject().putObject("handelser", handelse));
+        upd.putObject("$set", new JsonObject().putString("anmalningsstatus", "SKICKAD"));
 
         final JsonObject update = new JsonObject();
         update.putString("action", "update");
@@ -89,7 +89,7 @@ public class SkickaTillPolisenController extends Verticle {
     private JsonObject createUpdateEvent(final JsonObject request) {
         final JsonObject event = new JsonObject();
         event.putString("id", request.getString("id"));
-        event.putString("username", request.getString("username"));
+        event.putObject("skapadAv", request.getObject("skapadAv"));
         event.putString("title", request.getString("title"));
         return event;
     }

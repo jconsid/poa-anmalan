@@ -54,7 +54,7 @@ public class SkickaTillPolisen extends Verticle {
     private JsonObject createUpdateEvent(final JsonObject request) {
         final JsonObject event = new JsonObject();
         event.putString("id", request.getString("id"));
-        event.putString("username", request.getString("username"));
+        event.putObject("skapadAv", request.getObject("skapadAv"));
         event.putString("title", request.getString("title"));
         return event;
     }
