@@ -62,7 +62,7 @@ public class SkapaLoggmeddelande extends Verticle {
     protected JsonObject createUpdate(final JsonObject request) {
         final String anmalanId = request.getString("id");
 
-        final String tid = new Date().toString();
+        final String tid = Long.toString(new Date().getTime());
 
         final JsonObject person = request.getObject("skapadAv");
 

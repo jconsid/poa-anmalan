@@ -24,6 +24,7 @@ public class SkapaAnmalan extends Verticle {
 
 				final JsonObject skapadAv = request.body()
 						.getObject("skapadAv");
+
 				final JsonObject anmalan = request.body().getObject("anmalan");
 				
 				final JsonObject update = createUpdate(skapadAv, anmalan);
