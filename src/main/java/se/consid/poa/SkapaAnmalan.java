@@ -26,8 +26,9 @@ public class SkapaAnmalan extends Verticle {
 						.getObject("skapadAv");
 
 				final JsonObject anmalan = request.body().getObject("anmalan");
+                final boolean isNew = !anmalan.containsField("_id");
 				
-				final JsonObject update = createUpdate(skapadAv, anmalan);
+				final JsonObject update = createUpdate(skapadAv, anmalan, isNew);
 
 				vertx.eventBus().send("test.mongodb", update,
 						new Handler<Message<JsonObject>>() {
@@ -39,8 +40,9 @@ public class SkapaAnmalan extends Verticle {
 
 								request.reply(answer);
 
-								anmalan.putString("id", answer.getString("_id"));
-
+								if (isNew) {
+                                    anmalan.putString("id", answer.getString("_id"));
+                                }
 
 								fireEventAnmalanUppdaterad(anmalan);
 							}
@@ -66,9 +68,13 @@ public class SkapaAnmalan extends Verticle {
 	}
 
 	protected JsonObject createUpdate(final JsonObject skapadAv,
-			final JsonObject anmalan) {
+			final JsonObject anmalan, final boolean isNew) {
 
-		anmalan.putArray("handelser",fabricateHandelse(skapadAv));
+        if (isNew) {
+            anmalan.putArray("handelser",fabricateHandelseArray(skapadAv, isNew));
+        } else {
+            anmalan.getArray("handelser").add(fabricateHandelse(skapadAv, isNew));
+        }
 
 		final JsonObject upd = new JsonObject();
 
@@ -76,34 +82,40 @@ public class SkapaAnmalan extends Verticle {
 		update.putString("action", "save");
 		update.putString("collection", "anmalningar");
 		update.putObject("document", anmalan);
-
-		update.putObject("objNew", upd);
+        if (isNew) {
+		    update.putObject("objNew", upd);
+        }
 
 		return update;
 	}
 
-	private JsonArray fabricateHandelse(final JsonObject skapadAv) {
+	private JsonArray fabricateHandelseArray(final JsonObject avPerson, final boolean isNew) {
 		JsonArray handelseArray = new JsonArray();
 
-		JsonObject handelse = new JsonObject();
-		handelse.putString("typ", "skapad");
-		handelse.putString("tid", getTimeStamp());
-		handelse.putObject("person", fabricatePerson(skapadAv));
-
-		return handelseArray.add(handelse);
+		return handelseArray.add(fabricateHandelse(avPerson, isNew));
 	}
 
-	private JsonObject fabricatePerson(final JsonObject skapadAv) {
+    private JsonObject fabricateHandelse(final JsonObject avPerson, final boolean isNew) {
+        final JsonObject handelse = new JsonObject();
+        handelse.putString("typ", isNew ? "skapad" : "uppdaterad");
+        handelse.putString("tid", getTimeStamp());
+        handelse.putObject("person", fabricatePerson(avPerson));
+
+        return handelse;
+    }
+
+	private JsonObject fabricatePerson(final JsonObject avPerson) {
 		JsonObject person = new JsonObject();
-		person.putString("firstname", skapadAv.getString("firstname"));
-		person.putString("lastname", skapadAv.getString("lastname"));
-		person.putString("email", skapadAv.getString("epost"));
+		person.putString("firstname", avPerson.getString("firstname"));
+		person.putString("lastname", avPerson.getString("lastname"));
+		person.putString("email", avPerson.getString("epost"));
+        person.putString("username", avPerson.getString("username"));
 		return person;
 	}
 
 	private String getTimeStamp() {
 		Calendar cal = Calendar.getInstance();
-		return cal.getTime().toString();
+		return Long.toString(cal.getTime().getTime());
 	}
 
 }
